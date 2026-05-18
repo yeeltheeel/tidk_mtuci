@@ -1,0 +1,415 @@
+\chapter{Характерстики сигнала}
+
+\section{Описание сигналов в частотной области}
+
+Комплексный спектр
+\begin{align}
+	P(if) = \int_{-\infty}^{\infty} s(t)e^{-j2\pi ft} dt = F(s(t))
+\end{align}
+
+Сигнал
+\begin{align}
+	st(t) = \int_{-\infty}^{\infty} P(if))e^{-j2\pi ft} df = F^{-1}(P(if))
+\end{align}
+
+Амплитудный спектр
+\begin{align}
+	P(f) = |P(if)| = \sqrt{Re^{2}P(if) + Im^{2}P(if)}
+\end{align}
+
+Фазовый спектр
+\begin{align}
+	\Phi(f) = arg(P(if)) = \arctan{\frac{ImP(if)}{ReP(if)}}
+\end{align}
+
+Спектральная плотность энергии:
+\begin{align}
+	G(f) = |P(if)|^{2} = P(if)\overline{P}(if) \equiv P^{2}(if)
+\end{align}
+
+\section{Описание сигналов во временной области}
+
+Корреляционная функция 
+\begin{align}
+	B_{s}(\tau) = \int_{-\infty}^{\infty} s(t)s(t - \tau) dt \equiv \int_{-\infty}^{\infty} s(t + \tau)s(t) dt
+\end{align}
+
+Взаимная корреляционная функция
+\begin{align}
+	B_{s, u}(\tau) = \int_{-\infty}^{\infty} s(t)s(t - \tau)u dt
+\end{align}
+
+Коэффициент корреляции:
+\begin{align}
+	R(\tau) = \frac{B(\tau)}{B(0)}
+\end{align}
+
+Теорема Винера-Хинчина
+\begin{align}
+	B(\tau) = F^{-1}(G(f)) = \int_{-\infty}^{\infty} G(f)e^{-j2\pi ft} df \\
+	G(f) = F(B(\tau)) = \int_{-\infty}^{\infty} B(\tau)e^{-j2\pi ft} d\tau \nonumber
+\end{align}
+
+\chapter{Информационные характеристики сигналов}
+
+\section{Эффективная ширина спектра сигнала}
+
+Центральная частота сигнала
+\begin{align}
+	f_{oo} = \frac{\int_{f_{l}}^{f_{h}} f G(f) df}{\int_{f_{l}}^{f_{h}} G(f) df}
+\end{align}
+
+Эффективная ширина спектра для НЧ-сигнала
+\begin{align}
+	F_{e}: G(f) \leq \epsilon \cdot G(f_{oo})
+\end{align}
+
+Эффективная ширина спектра для полосового сигнала
+\begin{align}
+	F_{e}: G(f - f_{oo}) \leq \epsilon \cdot G(f_{oo})
+\end{align}
+
+Эффективная длительность сигнала
+\begin{align}
+	\tau_{e}: |B(\tau)| \leq \rho \cdot B(0)
+\end{align}
+
+База сигнала
+\begin{align}
+	B_{o} = F_{e} \cdot \tau_{e}
+\end{align}
+
+Размерность сигнала
+\begin{align}
+	n = 2 \lfloor B_{o} \rfloor = 2 \lfloor F_{e} \cdot \tau_{e} \rfloor = n_{dim}
+\end{align}
+
+\chapter{Дискретизация и квантование сигнала}
+
+\section{Дискретизация и восстановление сигналов}
+
+Максимальная частота дискретизации
+\begin{align}
+	f_{max} = F
+\end{align}
+
+Минимальная частота дискретизации
+\begin{align}
+	f_{d_min} = \frac{\tau_{e}}{\Delta_{d}} = 2F \text{ (для ЧО-сигналов)} \\
+	f_{d_min} = 2F_{e} \text{ (для не ЧО-сигналов)}\nonumber
+\end{align}
+ 
+Количество отсчетов
+\begin{align}
+	N = \lfloor \frac{\tau_{e}}{\Delta_{d}} \rfloor = \lfloor \tau_{e}f_{d_min} \rfloor = \lfloor 2F_{e}\tau_{e} \rfloor \approx 2 \lfloor B_{o}\rfloor  = n_{dim}
+\end{align}
+
+\section{Квантование дискретно-непрерывных сигналов}
+
+Равномерный шаг квантования
+\begin{align}
+	\Delta = \frac{b_{max} - b_{min}}{M - 1}
+\end{align}
+
+Шум квантования
+\begin{align}
+	\beta_{k} = b_{k} - b_{Qk}
+\end{align}
+
+Дисперсия шумов квантования
+\begin{align}
+	D_{\beta} = M[\beta_{k}^{2}] = \frac{\Delta^{2}}{12} 
+\end{align}
+
+Среднеквадратическое значение шумов квантования
+\begin{align}
+	\sigma_{\beta} = \sqrtsign{D_{\beta}} = \frac{\Delta}{2\sqrtsign{3}}
+\end{align}
+
+Отсчет цифрового сигнала
+\begin{align}
+	b_{Qk} = b_{k}^{(i)} = q_{k}^{(i)}\Delta,
+\end{align}
+где 
+\begin{itemize}
+	\item $q_{k}^{(i)} = p^{(i)} \cdot j_{k}$ -- 
+	\item $j_{k} = |i_{k} - (L - 1)|$ -- значение интервала наблюдения
+	\item $M = 2L - 1$ -- количество уровней
+	\item $L$ -- количество состояний
+	\item $p_{(i)}$ -- знак
+\end{itemize}
+
+\chapter{Кодирование цифровых сигналов}
+
+Процедура десятичного кодирования цифрового сигнала (в целочисленный код)
+\begin{align}
+	q_{k}^{(i)} = p^{(i)}j_{k} = p^{(i)}(q_{i, n - 1}, ..., q_{i, 0}), q_{i, l} = \overline{0, 9}
+\end{align}
+
+Процедура двоичного кодирования цифрового сигнала (в двоичный код) (ИКМ-сигнал)
+\begin{align}
+	w_{k}^{(i)} = p^{(i)}(w_{i, n}, ..., w_{i, 0}), w_{i, l} = \overline{0, 1}
+\end{align}
+
+Алгоритм получения первых n старших разрядов является рекуррентным
+\begin{align}
+	w_{i, l-1} = Q(i) = \frac{j - \sum_{l=l_{0}}^{n-1} w_{i, l_{0}}2^{l}}{2^{i}},
+\end{align}
+где 
+% \lfloor \rfloor
+\begin{itemize}
+	\item $w_{i, j - 1} = \lfloor \frac{j}{2^{n - 1}} \rfloor$;
+	\item $j = i + L + 1$;
+	\item $n = \lfloor \log_{2}(L - 1) \rfloor$.
+\end{itemize}
+
+Старший разряд, определяющий знак $p^{(i)}$ цифрового сигнала
+\begin{align}
+	w_{i, n} = 
+	\begin{cases}
+		1, p^{(i)} = 1\\
+		0, p^{(i)} = -1
+	\end{cases}
+\end{align}
+
+Оператор, обратный двоичному кодированию 
+\begin{align}
+	q_{k}^{(i)} = Q^{-1}(w_{i, k}) = p^{(i)}q_{k} = p^{(i)} \sum_{l=0}^{n - 1} 2^{l}w_{i, l},\\
+	\text{где }
+	p^{(i)} = 
+	\begin{cases}
+		\text{\hspace*{0.7em}}1, w_{i, n} = 1\\
+		-1, w_{i, n} = 0
+	\end{cases}\nonumber
+\end{align}
+
+Алгоритм m-ичного кодирования, при котором десятичные числа записываются в n-позиционной системе счисления по основанию m>2 в виде совокупности разрядов
+\begin{align}
+	v_{i, k} = (v_{i, n}, ..., v_{i, 0}), v_{i, l} = \overline{0, m - 1}
+\end{align}
+Алгоритмы m-ичного кодирования и декодирования строятся аналогично двоичному варианту.
+
+\chapter{Энтропия дискретного источника информации}
+
+Собственная случайная информация Шеннона ДИС
+\begin{align} 
+	\label{shannon_info}
+	I(x) = I(x_1, x_2) = -\log_{2}{p_{1, 2}(x_1, x_2)}
+\end{align}
+
+Собственная энтропия Шеннона ДИС
+\begin{align}
+	\label{shannon_entropy}
+	H(x) = M(I(x)) = -\sum_{k=1}^{L} \sum_{q=1}^{L} p_{1, 2}(a_k, a_q)\log_{2}{p_{1, 2}(a_k, a_q)}
+\end{align}
+
+Информация Хартли двухмерного ДИС $X = \{x_1, x_2\}$
+\begin{align}
+	\label{hart}
+	I_{Hart}(x) = -\log_{2}{\frac{1}{L^2}} = 2\log_{2}{L}
+\end{align}
+
+Собственная условная энтропия Шеннона ДИС
+\begin{align}
+	\label{shannon_entropy_if}
+	H(x_1 | x_2) =  -\sum_{k=1}^{L} \sum_{q=1}^{L} p_{1, 2}(a_k, a_q)\log_{2}{p_{1, 2}(a_k | a_q)}
+\end{align}
+
+Собственная взаимная энтропия Шеннона двух случайных величин одного ДИС
+\begin{align}
+	\label{shannon_entropy_double}
+	H(x \wedge y) = \sum_{r=1}^{M} \sum_{k=1}^{L} p_(a_k, b_r)\log_{2}{\frac{p(a_k | b_r)}{p(a_k)}}
+\end{align}
+
+Для одномерного ДИС $X = \{x\}$ из одной случайной величины с одномерным ДВР 
+$p(a_k) = P\{x_1 = a_k\}, a_k \in A$ выражения \ref{shannon_info}--\ref{hart} принимают вид:
+\begin{gather}
+	\label{single_dim}
+	I(x) = -\log_{2}{p(x)}, \\\nonumber
+	I_{Hart}(x) = -\log_{2}{\frac{1}{L}} = \log_{2}{L}, \\
+	H(x) = M(I(x)) = \sum_{k=1}^{L} p_(a_k)\log_{2}{p_(a_k)}. \nonumber
+\end{gather}
+
+Для ДИС из двух случайных величин $\{x_1, x_2\} = x$ с заданным двухмерным ДРВ  $p_{1,2}(a_k, a_q)$ собственная случайная информация (\ref{shannon_info}) и энтропии (\ref{shannon_entropy}--\ref{hart}) каждой из этих случайных величин могут быть вычислены по формулам \ref{single_dim} после нахождения их одномерных распределений из условия согласованности ДРВ по формулам:
+\begin{flalign}
+	p(a_k) = \sum_{q=1}^{L} p(a_k, a_q), p(a_q) = \sum_{k=1}^{L} p(a_k, a_q). 
+\end{flalign}
+
+\section{Взаимная информация и энтропия двух ДИС}
+
+Совместная взаимная энтропия двух ДИС
+\begin{align}
+	H(x, y) = M(I(x, y)) = -\sum_{r=1}^{M} \sum_{k=1}^{L} p(a_k, b_r)\log_{2}{p(a_k, b_r)}
+\end{align}
+
+Условная взаимная энтропия двух ДИС
+\begin{align}
+	H(x | y) = -\sum_{r=1}^{M} \sum_{k=1}^{L} p(a_k, b_r)\log_{2}{p(a_k | b_r)}
+\end{align}
+
+Взаимная энтропия двух ДИС
+\begin{align}
+	H(x \wedge y) = \sum_{r=1}^{M} \sum_{k=1}^{L} p(a_k, b_r)\log_{2}{\frac{p(a_k | b_r)}{p(a_k)}}
+\end{align}
+
+Собственные взаимные энтропии двух ДИС
+\begin{gather}
+	H(x) = -\sum_{k=1}^{L} p(a_k)\log_{2}{p(a_k)}, \\
+	H(y) = -\sum_{r=1}^{M} p(b_r)\log_{2}{p(b_r)} \nonumber
+\end{gather}
+
+\section{Основные тождества и неравенства для энтропий ДИС}
+
+\begin{align}
+	--
+\end{align}
+
+\section{Собственные энтропии ДИС}
+
+Энтропия ДИС-БП
+\begin{align}
+	--
+\end{align}
+
+Энтропия ДИС-CM
+\begin{align}
+	--
+\end{align}
+
+\section{Экстремальные свойства энтропии}
+
+\section{Удельная энтропия, производительность, насыщенность и избыточность ДИИ}
+
+Удельная энтропия
+\begin{align}
+	--
+\end{align}
+
+Удельная эргодическая энтропия
+\begin{align}
+	H_{\infty}(x) = \lim_{n \rightarrow \infty}{H_n(x)}
+\end{align}
+
+Показатели информационной эффективности:
+\begin{itemize}
+	\item производительность источника;
+	\item информационная насыщенность источника;
+	\item избыточность источника.
+\end{itemize}
+
+Производительность источника
+\begin{align}
+	--
+\end{align}
+
+Информационная насыщенность источника
+\begin{align}
+	--
+\end{align}
+
+Избыточность источника
+\begin{align}
+	--
+\end{align}
+
+\chapter{Информационные характеристики непрерывных сообщений}
+
+\section{Дифференциальные энтропии случайных ДИС}
+
+Информационная функция НИС
+\begin{align}
+	J_n(\cdot) = -\log_b{W_n(\cdot)} 
+\end{align}
+
+Дифференциальная энтропия
+\begin{gather}
+	n=1: H[\xi] = M[J(\xi)] = -M\log_b{W_1(\xi)} = -\int_{-\infty}^{+\infty} W_1(x)\log_b{W_1(x)}dx \\
+	n=2: H[\xi_1, \xi_2] =  M[J(\xi_1, \xi_2)] = -M\log_b{W_1(\xi_1, \xi_2)} =\nonumber\\= -\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty} W_2(x_1, x_2)\log_b{W_1(x_2, x_1)}dx_1dx_2\nonumber
+\end{gather}
+Условная дифференциальная энтропия
+
+Взаимная дифференциальная энтропия
+
+Примеры одномерных НИС и их энтропии:
+\begin{itemize}
+	\item НИС с равномерной ФПВ:
+\begin{gather}
+	W_1(x) = 
+	\begin{cases}
+		\frac{1}{L_x}, & x_{\min} < x < x_{\max},\\
+		0, & \text{иначе},
+	\end{cases}, \\
+	H[\xi] = \log_b{L_x}, m_x = \frac{x_{\min} + x_{\max}}{2}, D_\xi = \frac{L_x^2}{12}, L_x = x_{\max} - x_{\min}; \nonumber
+\end{gather}
+	\item НИС с гауссовской ФПВ:
+\begin{gather}
+	W_1(x) = \frac{1}{\sqrt{2\pi D_\xi}}e^{-\frac{x^2}{2D_\xi}}, \\
+	H[\xi] = \log_b{\sqrt{2\pi D_\xi e}}, M[\xi] = 0, M[\xi^2] = D_\xi; \nonumber
+\end{gather}
+	\item НИС с экспоненциальной ФПВ:
+\begin{gather}
+	W_1(x) = 
+	\begin{cases}
+		\lambda e^{-\lambda x}, & 0 \leq x < +\infty,\\
+		0, & \text{иначе},
+	\end{cases}, \\
+	H[\xi] = \log_b{\frac{e}{\lambda}}, m_\xi = \frac{1}{\lambda}, D_\xi = \frac{1}{\lambda^2}.\nonumber
+\end{gather}
+\end{itemize}
+
+\section{Экстремальные свойства энтропии}
+
+В отличии от ДИС, у непрерывных случайных сообщений диапазон возможных значений неограничен. Поэтому экстремальная постановка задачи достижения максимального значения дифференциальной энтропии обычно рассматривается для двух наиболее важных случаев:
+\begin{itemize}
+	\item ограниченная шкала изменения значений случайного НИС в заданном 
+	диапазоне $\Delta_x = [x_{\min}, x_{\max}]$ длиной $L_x$:
+	\begin{align}
+		H[\xi] \leq H^{(a)}_{\max} = n \cdot \log_b{\sqrt{2\pi D_\xi e}}
+	\end{align}
+	\item неограниченная шкала возможных значений НИС, но при ограничениях на 
+	математическое ожидание и дисперсию:
+	\begin{align}
+		H[\xi] \leq H^{(b)}_{\max} = n \cdot \log_b{\sqrt{2\pi D_\xi e}},
+	\end{align}
+	где предполагается, что $\xi$ -- произвольное n-мерное случайное сообщение с зависимыми или независимыми элементами, полученными при дискретизации НИС.
+\end{itemize}
+
+\chapter{Обозначения и сокращения}
+
+\begin{table}[!htbp]
+	\caption{Обозначения}
+	\begin{tabularx}{\textwidth}{|p{6em}|p{5em}|p{7em}|X|}
+		\hline
+		\textbf{Обозначение} & \textbf{Единицы} & \textbf{Термин} & \textbf{Определение} \\\hline
+		$s(t)$ & В & Сигнал & Функция во времени \\\hline
+		$P(jf)$ & В·с & Комплексный спектр & Преобразование Фурье \\\hline
+		$G(f)$ & В²·с²/Гц & Спектральная плотность энергии & $|P(jf)|^2$ \\\hline
+		$B(\tau)$ & В²·с & Корреляционная функция & Автокорреляция \\\hline
+		$F_e$ & Гц & Эффективная ширина спектра & -- \\\hline
+		$\tau_e$ & с & Эффективная длительность & -- \\\hline
+		$B_0$ & -- & База сигнала & $F_e\tau_e$ \\\hline
+		$n_{\mathrm{dim}}$ & -- & Размерность сигнала & $2\lfloor B_0\rfloor$ \\\hline
+		$I$ & бит & Информация & -- \\\hline
+		$H$ & бит & Энтропия & -- \\\hline
+	\end{tabularx}
+\end{table}
+\clearpage
+
+\begin{table}[!htbp]
+	\caption{Сокращения}
+	\begin{tabularx}{\textwidth}{|p{2.5em}|p{5em}|p{10em}|X|}
+		\hline
+		\textbf{Глава} & \textbf{Сокращение} & \textbf{Расшифровка} & \textbf{Описание} \\\hline
+		1 & АЧХ & Амплитудно-частотная характеристика & -- \\\hline
+		1 & НЧ & Низкочастотный & -- \\\hline
+		1 & ЧО & Частотно-ограниченный & -- \\\hline
+		5 & ДИС & Дискретное информационное сообщение & -- \\\hline
+		5 & ДИИ & Дискретный источник информации & -- \\\hline
+		5 & ДИИ-БП & Дискретный источник информации без памяти & Независимые символы \\\hline
+		5 & ДИИ-С & Стационарный дискретный источник информации & -- \\\hline
+		5 & ДРВ & Дискретное распределение вероятностей & -- \\\hline
+		5 & ФПВ & Функция плотности вероятности & -- \\\hline
+		6 & НИС & Непрерывное информационное сообщение & -- \\\hline
+		6 & ИКМ & Импульсно-кодовая модуляция & -- \\\hline
+	\end{tabularx}
+\end{table}
